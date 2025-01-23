@@ -22,8 +22,8 @@
                             <p class="card-text">
                                 <strong>Price: $<?= number_format($product['price'], 2); ?></strong>
                             </p>
-                            <form method="POST" action="/public/index.php">
-                                <input type="hidden" name="menu_item_id" value="<?= htmlspecialchars($product['product_name']); ?>">
+                            <form method="POST" action="/cart">
+                                <input type="hidden" name="product_name" value="<?= htmlspecialchars($product['product_name']); ?>">
                                 <input type="number" name="quantity" min="1" max="10" class="form-control mb-2" required>
                                 <button type="submit" name="add_to_cart" class="btn btn-primary w-100">Add to Cart</button>
                             </form>

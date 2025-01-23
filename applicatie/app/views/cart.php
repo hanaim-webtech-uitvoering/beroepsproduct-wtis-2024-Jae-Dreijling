@@ -30,7 +30,7 @@
                             <td>$<?= htmlspecialchars($item['quantity'] * $item['price']); ?></td>
                             <td>
                                 <form method="POST" action="/public/index.php">
-                                    <input type="hidden" name="cart_item_id" value="<?= $item['id']; ?>">
+                                    <input type="hidden" name="product_name" value="<?= htmlspecialchars($item['name']); ?>">
                                     <button type="submit" name="remove_from_cart" class="btn btn-danger btn-sm">Remove</button>
                                 </form>
                             </td>
