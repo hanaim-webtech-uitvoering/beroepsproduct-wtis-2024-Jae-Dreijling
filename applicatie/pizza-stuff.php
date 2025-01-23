@@ -1,5 +1,5 @@
 <?php
-require_once 'db_connectie.php';
+require_once 'app/config/db_connectie.php';
 
 // maak verbinding met de database (zie db_connection.php)
 $db = maakVerbinding();

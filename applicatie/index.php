@@ -1,19 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
-</head>
-<body>
-    <h1>It Works!!</h1>
-    <?php echo('Hallo WT\'er, de webserver is online en PHP werkt.'); ?>
-    <br>
-    <br>
-    Alle technische informatie over je webserver vind je hier: <a href="phpinfo.php">http://<?=$_SERVER['HTTP_HOST']?>/phpinfo.php</a>
-    <br>
-    <br>
-    Een voorbeeld van een pagina die gegevens uit de database haalt vind je hier: <a href="pizza-stuff.php">http://<?=$_SERVER['HTTP_HOST']?>/pizza-stuff.php</a>
-</body>
-</html>
+<?php
+session_start();
+
+// Autoload helper functions and classes
+require_once __DIR__ . '/app/config/db_connectie.php';
+require_once __DIR__ . '/app/helpers/Session.php';
+require_once __DIR__ . '/app/helpers/Validation.php';
+
+// Define routes
+$requestUri = $_SERVER['REQUEST_URI'];
+switch ($requestUri) {
+    case '/menu':
+        require_once __DIR__ . '/app/controllers/MenuController.php';
+        $controller = new MenuController();
+        $controller->showMenu();
+        break;
+
+    case '/cart':
+        require_once __DIR__ . '/app/controllers/OrderController.php';
+        $controller = new OrderController();
+        $controller->showCart();
+        break;
+
+    case '/order_summary':
+        require_once __DIR__ . '/app/controllers/OrderController.php';
+        $controller = new OrderController();
+        $controller->showOrderSummary();
+        break;
+
+    case '/profile':
+        require_once __DIR__ . '/app/controllers/AuthController.php';
+        $controller = new AuthController();
+        $controller->profile();
+        break;
+
+    case '/login':
+        require_once __DIR__ . '/app/controllers/AuthController.php';
+        $controller = new AuthController();
+        $controller->login();
+        break;
+
+    default:
+        header('Location: /menu');
+        exit;
+}
