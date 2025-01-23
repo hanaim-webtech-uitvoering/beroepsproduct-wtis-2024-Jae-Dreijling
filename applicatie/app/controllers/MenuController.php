@@ -1,10 +1,11 @@
 <?php
-require_once '../models/Menu.php';
+require_once __DIR__ . '/../models/Menu.php';
+
 
 class MenuController {
     public function displayMenu() {
         $menu = Menu::getAllItems();
-        require '../views/menu.php';
+        require __DIR__ . '/../views/menu.php';
     }
 }
 ?>

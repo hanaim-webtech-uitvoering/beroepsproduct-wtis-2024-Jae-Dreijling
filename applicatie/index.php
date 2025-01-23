@@ -12,7 +12,7 @@ switch ($requestUri) {
     case '/menu':
         require_once __DIR__ . '/app/controllers/MenuController.php';
         $controller = new MenuController();
-        $controller->showMenu();
+        $controller->displayMenu();
         break;
 
     case '/cart':

@@ -1,10 +1,10 @@
 <?php
-require_once '../config/db_connectie.php';
+require_once __DIR__ . '/../config/db_connectie.php';
 
 class Menu {
     public static function getAllItems() {
-        $db = Database::connect();
-        $stmt = $db->query("SELECT * FROM menu");
+        $db = maakVerbinding();
+        $stmt = $db->query("SELECT * FROM Product");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
