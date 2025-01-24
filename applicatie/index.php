@@ -17,7 +17,7 @@ switch ($requestUri) {
         $controller->displayCart();
         break;
 
-    case '/orders':
+    case '/bestelling':
         require_once __DIR__ . '/app/controllers/UserController.php';
         $controller = new UserController();
         $controller->displayProfile();
@@ -29,7 +29,7 @@ switch ($requestUri) {
         $controller->displayProfile();
         break;
     
-    case '/ordersOverview':
+    case '/bestellingOverzicht':
         require_once __DIR__ . '/app/controllers/OrderController.php';
         $controller = new OrderController();
         $controller->displayOrders();

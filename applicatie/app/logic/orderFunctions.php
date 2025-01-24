@@ -77,81 +77,77 @@ function handleRemoveFromCart() {
 
 function handleOrder() {
     if (!isset($_SESSION['username'], $_POST['address'])) {
-        redirectToError("User not logged in or address not provided.", "/cart");
+        redirectToError("Gebruiker niet ingelogd of geen adres gegeven.", "/cart");
     }
 
     $clientUsername = $_SESSION['username'];
-    $clientName = $_SESSION['user_full_name'] ?? 'Unknown User';
+    $clientName = $_SESSION['user_full_name'] ?? 'Onbekend';
     $address = htmlspecialchars($_POST['address']);
     $cart = getCart();
 
     if (empty($cart)) {
-        redirectToError("Your cart is empty. Add items before ordering.", "/menu");
+        redirectToError("Je winkelwagentje is leeg. voeg items toe voordat je bestelt.", "/menu");
     }
 
     try {
         $orderId = placeOrder($clientUsername, $clientName, $address);
 
-        $_SESSION['success_message'] = "Order successfully placed with Order ID: $orderId";
-        echo "<script>alert('Order placed successfully!');</script>";
+        $_SESSION['success_message'] = "Bestelling geplaatst met ID: $orderId";
+        echo "<script>alert('bestelling geplaatst!');</script>";
         header("Location: /menu");
         exit;
     } catch (Exception $e) {
-        redirectToError("An error occurred while placing the order: " . $e->getMessage(), "/cart");
+        redirectToError("Er is iets misgegaan!: " . $e->getMessage(), "/cart");
     }
 }
 
 function handleNext() {
     if (!isset($_POST['order_id'], $_POST['current_status'])) {
-        redirectToError("Order ID or current status missing.", "/ordersOverview");
+        redirectToError("bestelling id of status is niet gevonden.", "/bestellingOverzicht");
     }
 
     $orderId = intval($_POST['order_id']);
     $currentStatus = intval($_POST['current_status']);
 
     try {
-        // Increment the status value
         $newStatus = $currentStatus + 1;
 
-        // Ensure status does not exceed the maximum value
         if ($newStatus > 3) {
-            redirectToError("Cannot move to the next step. Status already at maximum.", "/ordersOverview");
+            redirectToError("Kan niet de status verder veranderen. het is al op het einde.", "/bestellingOverzicht");
         }
 
         Order::updateOrderStatus($orderId, $newStatus);
 
-        $_SESSION['success_message'] = "Order status updated successfully.";
-        header("Location: /ordersOverview");
+        $_SESSION['success_message'] = "Bestelling status succesvol verandert.";
+        header("Location: /bestellingOverzicht");
         exit;
     } catch (Exception $e) {
-        redirectToError("Error updating order status: " . $e->getMessage(), "/ordersOverview");
+        redirectToError("Error updating bestelling status: " . $e->getMessage(), "/bestellingOverzicht");
     }
 }
 
 function handlePrevious() {
     if (!isset($_POST['order_id'], $_POST['current_status'])) {
-        redirectToError("Order ID or current status missing.", "/ordersOverview");
+        redirectToError("bestelling id of status is niet gevonden", "/bestellingOverzicht");
     }
 
     $orderId = intval($_POST['order_id']);
     $currentStatus = intval($_POST['current_status']);
 
     try {
-        // Decrement the status value
         $newStatus = $currentStatus - 1;
 
-        // Ensure status does not go below the minimum value
         if ($newStatus < 0) {
-            redirectToError("Cannot move to the previous step. Status already at minimum.", "/ordersOverview");
+            redirectToError("Kan niet naar de vorige stap. Status al op minimum.", "/bestellingOverzicht");
         }
 
         Order::updateOrderStatus($orderId, $newStatus);
 
-        $_SESSION['success_message'] = "Order status updated successfully.";
-        header("Location: /ordersOverview");
+        $_SESSION['success_message'] = "Bestelling status succesvol verandert.";
+        header("Location: /bestellingOverzicht");
         exit;
     } catch (Exception $e) {
-        redirectToError("Error updating order status: " . $e->getMessage(), "/ordersOverview");
+        redirectToError("Error updating bestelling status: " . $e->getMessage(), "/bestellingOverzicht");
     }
 }
 
@@ -174,7 +170,7 @@ function addToCart(string $productName, int $quantity): void {
             ];
         }
     } else {
-        throw new Exception("Product not found.");
+        throw new Exception("Product niet gevonden.");
     }
 }
 
@@ -202,7 +198,7 @@ function placeOrder(string $clientUsername, string $clientName, string $address)
     $cart = getCart();
 
     if (empty($cart)) {
-        throw new Exception("Cannot place an order with an empty cart.");
+        throw new Exception("Ckan geen bestelling plaatsen zonder items in winkelwagentje.");
     }
 
     // Add order to the database

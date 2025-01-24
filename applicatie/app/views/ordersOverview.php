@@ -7,11 +7,11 @@ $title = "Orders | Pizzeria Sole Machina 🍕";
 
 
 createHead($title);
-createHeader("All Orders");
+createHeader("Alle bestellingen");
 ?>
 
 <div class="container my-4">
-    <h1 class="text">All Orders</h1>
+    <h1 class="text">Alle bestellingen</h1>
 
     <?php if (isset($_SESSION['success_message'])): ?>
         <div class="alert alert-success">
@@ -29,12 +29,12 @@ createHeader("All Orders");
     <table class="table table-bordered table-striped">
         <thead class="table-danger">
             <tr>
-                <th>Order ID</th>
-                <th>Client Name</th>
-                <th>Products</th>
+                <th>Bestelling ID</th>
+                <th>Klant naam</th>
+                <th>Producten</th>
                 <th>Status</th>
-                <th>Date/Time</th>
-                <th>Actions</th>
+                <th>Datum/tijd</th>
+                <th>Status updaten</th>
             </tr>
         </thead>
         <tbody>
@@ -52,14 +52,14 @@ createHeader("All Orders");
                                 <input type="hidden" name="order_id" value="<?= htmlspecialchars($order['order_id']) ?>">
                                 <input type="hidden" name="current_status" value="<?= htmlspecialchars($order['status']) ?>">
                                 <button type="submit" name="action" value="previous" class="btn btn-warning btn-sm" <?= $order['status'] <= 0 ? 'disabled' : '' ?>>
-                                    Previous Step
+                                    Terug
                                 </button>
                             </form>
                             <form method="POST" action="/app/logic/orderFunctions.php" class="d-inline-block">
                                 <input type="hidden" name="order_id" value="<?= htmlspecialchars($order['order_id']) ?>">
                                 <input type="hidden" name="current_status" value="<?= htmlspecialchars($order['status']) ?>">
                                 <button type="submit" name="action" value="next" class="btn btn-success btn-sm" <?= $order['status'] >= 3 ? 'disabled' : '' ?>>
-                                    Next Step
+                                    Volgende
                                 </button>
                             </form>
                         </td>
@@ -67,7 +67,7 @@ createHeader("All Orders");
                 <?php endforeach; ?>
             <?php else: ?>
                 <tr>
-                    <td colspan="6" class="text-center">No orders found.</td>
+                    <td colspan="6" class="text-center">Geen bestellingen gevonden.</td>
                 </tr>
             <?php endif; ?>
         </tbody>
