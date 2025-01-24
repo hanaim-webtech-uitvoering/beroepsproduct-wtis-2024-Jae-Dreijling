@@ -94,7 +94,7 @@ function handleOrder() {
 
         $_SESSION['success_message'] = "Order successfully placed with Order ID: $orderId";
         echo "<script>alert('Order placed successfully!');</script>";
-        header("Location: /profile");
+        header("Location: /menu");
         exit;
     } catch (Exception $e) {
         redirectToError("An error occurred while placing the order: " . $e->getMessage(), "/cart");
