@@ -26,16 +26,16 @@ createHeader("menu");
                         <div class="card-body">
                             <h5 class="card-title"><?= htmlspecialchars($product['product_name']); ?></h5>
                             <p class="card-text">
-                                <strong>Ingredients:</strong> <?= htmlspecialchars($product['ingredients']); ?>
+                                <strong>Ingredienten:</strong> <?= htmlspecialchars($product['ingredients']); ?>
                             </p>
                             <p class="card-text">
-                                <strong>Price: $<?= number_format($product['price'], 2); ?></strong>
+                                <strong>Prijs: €<?= number_format($product['price'], 2); ?></strong>
                             </p>
                             <form method="POST" action="/app/logic/orderFunctions.php">
                                 <input type="hidden" name="action" value="add_to_cart">
                                 <input type="hidden" name="product_name" value="<?= htmlspecialchars($product['product_name']); ?>">
                                 <input type="number" name="quantity" min="1" max="10" class="form-control mb-2" required>
-                                <button type="submit" name="add_to_cart" class="btn btn-danger w-100">Add to Cart</button>
+                                <button type="submit" name="add_to_cart" class="btn btn-danger w-100">Voeg toe aan winkelwagentje</button>
                             </form>
                         </div>
                     </div>
