@@ -103,7 +103,7 @@ function handleOrder() {
 
 function handleNext() {
     if (!isset($_POST['order_id'], $_POST['current_status'])) {
-        redirectToError("bestelling id of status is niet gevonden.", "/ordersOverview");
+        redirectToError("bestelling id of status is niet gevonden.", "/bestellingOverzicht");
     }
 
     $orderId = intval($_POST['order_id']);
@@ -113,22 +113,22 @@ function handleNext() {
         $newStatus = $currentStatus + 1;
 
         if ($newStatus > 3) {
-            redirectToError("Kan niet de status verder veranderen. het is al op het einde.", "/ordersOverview");
+            redirectToError("Kan niet de status verder veranderen. het is al op het einde.", "/bestellingOverzicht");
         }
 
         Order::updateOrderStatus($orderId, $newStatus);
 
         $_SESSION['success_message'] = "Bestelling status succesvol verandert.";
-        header("Location: /ordersOverview");
+        header("Location: /bestellingOverzicht");
         exit;
     } catch (Exception $e) {
-        redirectToError("Error updating bestelling status: " . $e->getMessage(), "/ordersOverview");
+        redirectToError("Error updating bestelling status: " . $e->getMessage(), "/bestellingOverzicht");
     }
 }
 
 function handlePrevious() {
     if (!isset($_POST['order_id'], $_POST['current_status'])) {
-        redirectToError("bestelling id of status is niet gevonden", "/ordersOverview");
+        redirectToError("bestelling id of status is niet gevonden", "/bestellingOverzicht");
     }
 
     $orderId = intval($_POST['order_id']);
@@ -138,16 +138,16 @@ function handlePrevious() {
         $newStatus = $currentStatus - 1;
 
         if ($newStatus < 0) {
-            redirectToError("Kan niet naar de vorige stap. Status al op minimum.", "/ordersOverview");
+            redirectToError("Kan niet naar de vorige stap. Status al op minimum.", "/bestellingOverzicht");
         }
 
         Order::updateOrderStatus($orderId, $newStatus);
 
-        $_SESSION['success_message'] = "bestelling status successvol geupdate.";
-        header("Location: /ordersOverview");
+        $_SESSION['success_message'] = "Bestelling status succesvol verandert.";
+        header("Location: /bestellingOverzicht");
         exit;
     } catch (Exception $e) {
-        redirectToError("Error updating bestelling status: " . $e->getMessage(), "/ordersOverview");
+        redirectToError("Error updating bestelling status: " . $e->getMessage(), "/bestellingOverzicht");
     }
 }
 

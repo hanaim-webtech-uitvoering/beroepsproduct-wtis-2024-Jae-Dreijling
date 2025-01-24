@@ -28,7 +28,7 @@ function createHeader($pageTitle) {
         if ($role === 'Personnel') {
             // Menu items for personnel
             $leftMenuItems = [
-                "ordersOverview" => "Order Overview",
+                "bestellingOverzicht" => "Bestelling Overzicht",
                 "profile" => "Profile",
             ];
         } else {
@@ -36,7 +36,7 @@ function createHeader($pageTitle) {
             $leftMenuItems = [
                 "menu" => "Menu",
                 "cart" => "Cart",
-                "orders" => "My Orders",
+                "orders" => "Mijn bestellingen",
                 "profile" => "Profile",
             ];
         }

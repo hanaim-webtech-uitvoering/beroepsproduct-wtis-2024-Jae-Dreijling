@@ -48,7 +48,7 @@ function handleLogin() {
             $_SESSION['user_address'] = $gebruiker['address'] ?? '';
 
             if ($role === 'Personnel') {
-                header("Location: /orders");
+                header("Location: /beste");
             } else {
                 header("Location: /menu");
             }

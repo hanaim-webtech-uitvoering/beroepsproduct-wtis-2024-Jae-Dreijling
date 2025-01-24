@@ -7,7 +7,7 @@ $title = "Orders | Pizzeria Sole Machina 🍕";
 
 
 createHead($title);
-createHeader("All Orders");
+createHeader("Alle bestellingen");
 ?>
 
 <div class="container my-4">
