@@ -17,21 +17,33 @@ HTML;
 function createHeader($pageTitle) {
     $isLoggedIn = isset($_SESSION['username']);
     $currentPage = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+    $role = $_SESSION['role'] ?? null;
 
-    // Define menu items for the left and right sections
-    $leftMenuItems = [
-        "menu" => "Menu",
-        "cart" => "Cart",
-    ];
+    $leftMenuItems = [];
     $rightMenuItems = [
         "login" => $isLoggedIn ? "Logout" : "Login",
     ];
 
-    if (!$isLoggedIn) {
-        $rightMenuItems["register"] = "Register";
+    if ($isLoggedIn) {
+        if ($role === 'Personnel') {
+            // Menu items for personnel
+            $leftMenuItems = [
+                "ordersOverview" => "Order Overview",
+                "profile" => "Profile",
+            ];
+        } else {
+            // Menu items for clients
+            $leftMenuItems = [
+                "menu" => "Menu",
+                "cart" => "Cart",
+                "orders" => "My Orders",
+                "profile" => "Profile",
+            ];
+        }
     } else {
-        $leftMenuItems["orders"] = "Orders";
-        $leftMenuItems["profile"] = "Profile";
+        // menu items for not logged in users
+        $leftMenuItems["cart"] = "Cart";
+        $rightMenuItems["register"] = "Register";
     }
 
     echo <<<HTML
@@ -46,13 +58,11 @@ function createHeader($pageTitle) {
                 <ul class="navbar-nav">
 HTML;
 
-    // Add left menu items
     foreach ($leftMenuItems as $route => $name) {
         $activeClass = $route === $currentPage ? "active" : "";
         echo "<li class='nav-item'><a class='nav-link text-white $activeClass' href='/$route'>$name</a></li>";
     }
 
-    // Add right menu items
     echo <<<HTML
                 </ul>
                 <ul class="navbar-nav ms-auto">

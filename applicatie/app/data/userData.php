@@ -3,20 +3,22 @@
 require_once __DIR__ . '/../config/db_connectie.php';
 
 class User {
-    function getUser($username, $role) {
+    public function getUser(string $username, string $role): ?array {
         try {
             $db = createConnection();
+    
             $stmt = $db->prepare("
-                SELECT username, password, role 
+                SELECT username, password, role, address
                 FROM [User] 
                 WHERE username = ? AND role = ?
             ");
             $stmt->execute([$username, $role]);
-            return $stmt->fetch(PDO::FETCH_ASSOC);
-        } catch (Exception $e) {
-            throw new Exception("Error fetching user: " . $e->getMessage());
+            return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
+        } catch (PDOException $e) {
+            throw new Exception("Database error while fetching user: " . $e->getMessage());
         }
     }
+    
     
     function doesUsernameExist($username) {
         try {

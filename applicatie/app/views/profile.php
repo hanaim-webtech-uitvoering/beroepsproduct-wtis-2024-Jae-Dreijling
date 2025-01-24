@@ -76,7 +76,7 @@ createHeader("Profiel");
             <p class="text-muted">U heeft nog geen bestellingen geplaatst.</p>
         <?php endif; ?>
 
-        <a href="/menu" class="btn btn-secondary mt-4">Terug naar menu</a>
+        <a href="/menu" class="btn btn-secondary my-4">Terug naar menu</a>
     </div>
 
 <?php 
