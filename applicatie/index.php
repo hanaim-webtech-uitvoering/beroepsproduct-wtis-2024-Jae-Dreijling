@@ -1,12 +1,8 @@
 <?php
 session_start();
 
-// Autoload helper functions and classes
 require_once __DIR__ . '/app/config/db_connectie.php';
-// require_once __DIR__ . '/app/helpers/Session.php';
-// require_once __DIR__ . '/app/helpers/Validation.php';
 
-// Define routes
 $requestUri = $_SERVER['REQUEST_URI'];
 switch ($requestUri) {
     case '/menu':
@@ -21,16 +17,10 @@ switch ($requestUri) {
         $controller->displayCart();
         break;
 
-    case '/order_summary':
-        require_once __DIR__ . '/app/controllers/OrderController.php';
-        $controller = new OrderController();
-        $controller->displayOrderSummary();
-        break;
-
     case '/orders':
-        require_once __DIR__ . '/app/controllers/OrderController.php';
-        $controller = new OrderController();
-        $controller->displayOrders();
+        require_once __DIR__ . '/app/controllers/UserController.php';
+        $controller = new UserController();
+        $controller->displayProfile();
         break;
 
     case '/profile':
@@ -38,11 +28,24 @@ switch ($requestUri) {
         $controller = new UserController();
         $controller->displayProfile();
         break;
+    
+    case '/ordersOverview':
+        require_once __DIR__ . '/app/controllers/OrderController.php';
+        $controller = new OrderController();
+        $controller->displayOrders();
+        break;
+        
 
     case '/login':
         require_once __DIR__ . '/app/controllers/UserController.php';
         $controller = new UserController();
         $controller->displayLogin();
+        break;
+    
+    case '/medewerkerLogin':
+        require_once __DIR__ . '/app/controllers/UserController.php';
+        $controller = new UserController();
+        $controller->displayWorkerLogin();
         break;
 
     case '/register':

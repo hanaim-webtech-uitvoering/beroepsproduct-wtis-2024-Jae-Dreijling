@@ -22,7 +22,7 @@ createHeader("Inloggen als klant")
                 <?php endif; ?>
                 <form action="/app/logic/userFunctions.php" method="post">
                     <input type="hidden" name="action" value="register">
-                    <input type="hidden" name="role" value="client">
+                    <input type="hidden" name="role" value="Client">
 
                     <div class="mb-3">
                         <label for="username" class="form-label">Gebruikersnaam</label>
@@ -44,7 +44,7 @@ createHeader("Inloggen als klant")
                         <label for="address" class="form-label">Adres</label>
                         <input type="text" id="address" name="address" class="form-control" required>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100">Registreren</button>
+                    <button type="submit" class="btn btn-danger w-100">Registreren</button>
                 </form>
             </div>
         </div>
