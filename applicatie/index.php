@@ -3,8 +3,8 @@ session_start();
 
 // Autoload helper functions and classes
 require_once __DIR__ . '/app/config/db_connectie.php';
-require_once __DIR__ . '/app/helpers/Session.php';
-require_once __DIR__ . '/app/helpers/Validation.php';
+// require_once __DIR__ . '/app/helpers/Session.php';
+// require_once __DIR__ . '/app/helpers/Validation.php';
 
 // Define routes
 $requestUri = $_SERVER['REQUEST_URI'];
