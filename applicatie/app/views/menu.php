@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu</title>
-    <link href="/public/css/styles.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+<?php
+require_once __DIR__ . '/../logic/layoutFunctions.php';
+createHead();
+createHeader("menu");
+?>
 <body>
     <div class="container">
         <h1 class="my-4 text-center">Menu</h1>
@@ -25,7 +21,7 @@
                             <form method="POST" action="/cart">
                                 <input type="hidden" name="product_name" value="<?= htmlspecialchars($product['product_name']); ?>">
                                 <input type="number" name="quantity" min="1" max="10" class="form-control mb-2" required>
-                                <button type="submit" name="add_to_cart" class="btn btn-primary w-100">Add to Cart</button>
+                                <button type="submit" name="add_to_cart" class="btn btn-danger w-100">Add to Cart</button>
                             </form>
                         </div>
                     </div>
@@ -35,4 +31,7 @@
         </div>
     </div>
 </body>
+<?php 
+createFooter();
+?>
 </html>
