@@ -1,9 +1,13 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 require_once __DIR__ . '/../logic/layoutFunctions.php';
 createHead();
 createHeader("menu");
 ?>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <div class="container">
         <h1 class="my-4 text-center">Menu</h1>
         <div class="row">
@@ -30,8 +34,6 @@ createHeader("menu");
 
         </div>
     </div>
-</body>
 <?php 
 createFooter();
 ?>
-</html>

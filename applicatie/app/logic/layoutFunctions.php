@@ -16,30 +16,29 @@ HTML;
 
 function createHeader($pageTitle) {
     $isLoggedIn = isset($_SESSION['username']);
-    $currentPage = basename($_SERVER['PHP_SELF']);
+    $currentPage = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
 
     // Define menu items for the left and right sections
     $leftMenuItems = [
-        "index.php" => "Home",
-        "cart.php" => "Cart",
+        "menu" => "Menu",
+        "cart" => "Cart",
     ];
     $rightMenuItems = [
-        "login.php" => $isLoggedIn ? "Logout" : "Login",
+        "login" => $isLoggedIn ? "Logout" : "Login",
     ];
 
     if (!$isLoggedIn) {
-        $rightMenuItems["register.php"] = "Register";
-    }
-    else {
-        $leftMenuItems["orders.php"] = "Orders";
-        $leftmenuItems["profile.php"] = "Profile";
+        $rightMenuItems["register"] = "Register";
+    } else {
+        $leftMenuItems["orders"] = "Orders";
+        $leftMenuItems["profile"] = "Profile";
     }
 
     echo <<<HTML
 <header class="mb-4">
     <nav class="navbar navbar-expand-lg navbar-danger bg-danger">
         <div class="container">
-            <a class="navbar-brand text-white" href="index.php">Pizzeria Sole Machina 🍕</a>
+            <a class="navbar-brand text-white" href="/menu">Pizzeria Sole Machina 🍕</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -48,9 +47,9 @@ function createHeader($pageTitle) {
 HTML;
 
     // Add left menu items
-    foreach ($leftMenuItems as $file => $name) {
-        $activeClass = $file === $currentPage ? "active" : "";
-        echo "<li class='nav-item'><a class='nav-link text-white $activeClass' href='$file'>$name</a></li>";
+    foreach ($leftMenuItems as $route => $name) {
+        $activeClass = $route === $currentPage ? "active" : "";
+        echo "<li class='nav-item'><a class='nav-link text-white $activeClass' href='/$route'>$name</a></li>";
     }
 
     // Add right menu items
@@ -59,9 +58,9 @@ HTML;
                 <ul class="navbar-nav ms-auto">
 HTML;
 
-    foreach ($rightMenuItems as $file => $name) {
-        $activeClass = $file === $currentPage ? "active" : "";
-        $url = ($file === "login.php" && $isLoggedIn) ? "../logic/logout.php" : $file;
+    foreach ($rightMenuItems as $route => $name) {
+        $activeClass = $route === $currentPage ? "active" : "";
+        $url = ($route === "login" && $isLoggedIn) ? "/logout" : "/$route";
         echo "<li class='nav-item'><a class='nav-link text-white $activeClass' href='$url'>$name</a></li>";
     }
 
@@ -75,9 +74,10 @@ HTML;
 }
 
 
+
 function createFooter() {
     echo <<<HTML
-<footer class="bg-dark text-white text-center py-3">
+<footer class="bg-dark text-white text-center py-3 mt-auto">
     <p>&copy; 2025 Pizzeria Sole Machina 🍕. All rights reserved.</p>
     <a href="privacy-policy.php" class="text-white text-decoration-underline">Privacy Policy</a>
 </footer>
@@ -86,4 +86,5 @@ function createFooter() {
 </html>
 HTML;
 }
+
 ?>
